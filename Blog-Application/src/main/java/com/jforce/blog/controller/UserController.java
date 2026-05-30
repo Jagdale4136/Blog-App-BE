@@ -1,6 +1,7 @@
 package com.jforce.blog.controller;
 
 import com.jforce.blog.dto.AppResponse;
+import com.jforce.blog.dto.AuthResponse;
 import com.jforce.blog.dto.UserDTO;
 import com.jforce.blog.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,20 @@ public class UserController {
     @PostMapping("/create-account")
     public AppResponse<UserDTO> userSignUp(@RequestBody UserDTO userDTO){
         try{
-
             UserDTO user = userService.createNewUser(userDTO);
             return AppResponse.withData(AppResponse.SUCCESS,user);
         } catch (Exception e) {
             log.error("Error creating users account ...");
+            throw e;
+        }
+    }
+
+    @PostMapping("/log-in")
+    public AppResponse<AuthResponse> signIn(@RequestBody UserDTO userDTO){
+        try{
+            AuthResponse response = userService.signIn(userDTO);
+            return AppResponse.withData(AppResponse.SUCCESS,response);
+        } catch (Exception e) {
             throw e;
         }
     }
