@@ -1,8 +1,10 @@
 package com.jforce.blog.service.user;
 
 import com.jforce.blog.constants.UserRole;
+import com.jforce.blog.dto.AuthResponse;
 import com.jforce.blog.dto.UserDTO;
 import com.jforce.blog.exceptions.BadRequestException;
+import com.jforce.blog.exceptions.ResourceNotFoundException;
 import com.jforce.blog.factory.user.UsersFactory;
 import com.jforce.blog.model.User;
 import com.jforce.blog.repository.UserRepository;
@@ -38,6 +40,28 @@ public class UserServiceImpl implements UserService{
         User savedUser = userRepository.save(user);
 
         return usersFactory.entityToUsersDto(savedUser);
+    }
+
+    @Override
+    public AuthResponse signIn(UserDTO userDTO) {
+        if(ObjectUtils.isEmpty(userDTO)){
+            throw new BadRequestException("Invalid Request.");
+        }
+        if(StringUtils.isBlank(userDTO.getUserName())){
+            throw new BadRequestException("User name is required");
+        }
+        if(StringUtils.isBlank(userDTO.getPassword())){
+            throw new BadRequestException("password is required");
+        }
+        User user = userRepository.findByUserName(userDTO.getUserName()).orElseThrow(
+                () -> new ResourceNotFoundException("User Not found with given username."));
+
+         if( ! passwordEncoder.matches(userDTO.getPassword(),user.getPassword())){
+             throw new BadRequestException("Incorrect Password.");
+         }
+            // Dummy token
+           // TODO NOT IMPLEMENTED THE FULL SECURITY FLOW DUE LESS TIME  GENERATING DUMMY RESPONSE
+        return new AuthResponse("DUMMY_AUTH_TOKEN_RESPONSE");
     }
 
     private void validateCreateNewUserRequest(UserDTO userDTO) {
