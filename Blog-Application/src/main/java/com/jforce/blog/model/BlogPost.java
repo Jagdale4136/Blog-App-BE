@@ -17,7 +17,7 @@ public class BlogPost {
     private Integer blogId;
 
     @Column(nullable = false)
-    private Integer userId;
+    private Long userId;
 
     private String title;
 
@@ -25,9 +25,11 @@ public class BlogPost {
 
     private String tags;
 
+    private Boolean isFeatured = false;
+
     private String readMoreLink;
 
-    private Boolean isApproved;
+    private Boolean isApproved = false;
 
     @CreationTimestamp
     private Timestamp createdAt;

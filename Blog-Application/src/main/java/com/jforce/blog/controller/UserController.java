@@ -1,15 +1,11 @@
 package com.jforce.blog.controller;
 
-import com.jforce.blog.dto.AppResponse;
-import com.jforce.blog.dto.AuthResponse;
-import com.jforce.blog.dto.UserDTO;
+import com.jforce.blog.dto.*;
 import com.jforce.blog.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
 @RestController
@@ -30,15 +26,20 @@ public class UserController {
     }
 
     @PostMapping("/log-in")
-    public AppResponse<AuthResponse> signIn(@RequestBody UserDTO userDTO){
+    public AppResponse<AuthResponse> signIn(@RequestBody SignInRequest signInRequest){
         try{
-            AuthResponse response = userService.signIn(userDTO);
+            AuthResponse response = userService.signIn(signInRequest);
             return AppResponse.withData(AppResponse.SUCCESS,response);
         } catch (Exception e) {
             throw e;
         }
     }
 
+    @GetMapping("/get-user-profile")
+    public AppResponse<UserProfileResponse> getUserProfileResponse(  Authentication authentication) {
+        UserProfileResponse response = userService.getProfile(authentication.getName());
+        return AppResponse.withData(AppResponse.SUCCESS,response);
+    }
 
 
 }

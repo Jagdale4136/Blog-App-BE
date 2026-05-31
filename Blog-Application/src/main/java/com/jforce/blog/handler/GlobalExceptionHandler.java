@@ -4,12 +4,14 @@ import com.jforce.blog.constants.Status;
 import com.jforce.blog.dto.AppResponse;
 import com.jforce.blog.exceptions.BadRequestException;
 import com.jforce.blog.exceptions.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<AppResponse<Void>> handleBadRequest(BadRequestException ex) {

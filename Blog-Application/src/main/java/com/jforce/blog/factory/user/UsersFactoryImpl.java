@@ -39,7 +39,7 @@ public class UsersFactoryImpl implements UsersFactory {
         userDTO.setIsActive(user.getIsActive());
         userDTO.setUserRole(user.getUserRole());
         userDTO.setCreatedAt(user.getCreatedAt());
-        return null;
+        return userDTO;
     }
 
     @Override
@@ -56,5 +56,18 @@ public class UsersFactoryImpl implements UsersFactory {
             return List.of();
 
         return usersList.stream().map(this::entityToUsersDto).toList();
+    }
+
+    @Override
+    public User updateUserEntity(User user, UserDTO dto) {
+        user.setUserId(dto.getUserId());
+        user.setUserName(dto.getUserName());
+        user.setEmail(dto.getEmail());
+        user.setFullName(dto.getFullName());
+        user.setIsActive(dto.getIsActive());
+        user.setUserRole(dto.getUserRole());
+        user.setCreatedAt(dto.getCreatedAt() != null ? dto.getCreatedAt()
+                : new Timestamp(new Date().getTime()));
+        return user;
     }
 }

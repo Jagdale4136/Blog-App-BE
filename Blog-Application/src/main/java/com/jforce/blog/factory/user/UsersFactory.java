@@ -15,4 +15,5 @@ public interface UsersFactory {
 
     List<UserDTO> entityListToUsersDtoList(List<User> usersList);
 
+    User updateUserEntity(User user, UserDTO dto);
 }

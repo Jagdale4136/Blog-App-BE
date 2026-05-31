@@ -18,6 +18,7 @@ public class BlogPostFactoryImpl implements BlogPostFactory {
         post.setTitle(dto.getTitle());
         post.setUserId(dto.getUserId());
         post.setContent(dto.getContent());
+        post.setIsFeatured(dto.getIsFeatured());
         post.setReadMoreLink(dto.getReadMoreLink());
         post.setIsApproved(dto.getIsApproved());
         post.setCreatedAt(dto.getCreatedAt() != null ? dto.getCreatedAt()
@@ -33,8 +34,10 @@ public class BlogPostFactoryImpl implements BlogPostFactory {
         BlogPostDTO dto = new BlogPostDTO();
         dto.setTitle(blogPost.getTitle());
         dto.setBlogId(blogPost.getBlogId());
+        dto.setUserId(blogPost.getUserId());
         dto.setTags(blogPost.getTags());
         dto.setContent(blogPost.getContent());
+        dto.setIsFeatured(blogPost.getIsFeatured());
         dto.setReadMoreLink(blogPost.getReadMoreLink());
         dto.setCreatedAt(blogPost.getCreatedAt());
         dto.setIsApproved(blogPost.getIsApproved());
@@ -58,6 +61,7 @@ public class BlogPostFactoryImpl implements BlogPostFactory {
         post.setTags(dto.getTags());
         post.setContent(dto.getContent());
         post.setBlogId(dto.getBlogId());
+        post.setIsFeatured(dto.getIsFeatured());
         post.setCreatedAt(dto.getCreatedAt());
         post.setReadMoreLink(dto.getReadMoreLink());
         post.setUpdatedAt(new Timestamp(new Date().getTime()));

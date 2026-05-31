@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Data
 public class UserDTO {
 
-    private Integer userId;
+    private Long userId;
 
     private String userName;
 
